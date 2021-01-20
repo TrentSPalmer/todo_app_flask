@@ -1,0 +1,14 @@
+[Unit]
+Description=Todo Application
+After=network.target
+
+[Service]
+User=todo
+Group=todo
+WorkingDirectory=/var/lib/todo
+Environment=FLASK_DEBUG=0
+ExecStart=/usr/bin/gunicorn3 --access-logfile '-' -b 127.0.0.1:8300 -w 1 todo:app
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

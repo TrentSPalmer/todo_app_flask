@@ -1,0 +1,70 @@
+<style>
+#main {
+  align-items: center;
+}
+.heading {
+  margin-top: 40px;
+}
+.buttonLink {
+  width: 95%;
+  max-width: 700px;
+  text-decoration: none;
+}
+.buttonLink button {
+  width: 100%;
+  background-color: black;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  margin-bottom: 10px;
+  border-radius: 9px;
+  font-size: 1.3rem;
+  display: flex;
+  font-weight: bold;
+}
+</style>
+{% extends "base.html" %}
+
+{% if task.done == True %}
+  {% set textColor = "color: grey;" %}
+{% else %}
+  {% set textColor = "color: white;" %}
+{% endif %}
+
+{% block content %}
+  <h1 class="heading">Actions For {{ task.content[0:10] }}...</h1>
+  <a href="{{ url_for('toggletaskdone.toggle_task_done', taskid=task.id) }}" class="buttonLink">
+    <button style="{{ textColor }}">
+     {% if task.done == True %} UnMark Done {% else %} Mark Done {% endif %}
+    </button>
+  </a>
+  <a href="{{ url_for('edittask.edit_task', taskid=task.id) }}" class="buttonLink">
+    <button style="{{ textColor }}">Edit</button>
+  </a>
+  <a href="{{ url_for('deletetask.delete_task', taskid=task.id) }}" class="buttonLink">
+    <button style="{{ textColor }}">Delete</button>
+  </a>
+  <a href="{{ url_for('cats.move_categories', taskid=task.id) }}" class="buttonLink">
+    <button style="{{ textColor }}">Move-Category</button>
+  </a>
+  {% if task.can_move_top == True %}
+    <a href="{{ url_for('reorderp.move_task', taskid=task.id, move='top') }}" class="buttonLink">
+      <button style="{{ textColor }}">Move-Top</button>
+    </a>
+  {% endif %}
+  {% if task.can_move_up == True %}
+    <a href="{{ url_for('reorderp.move_task', taskid=task.id, move='up') }}" class="buttonLink">
+      <button style="{{ textColor }}">Move-Up</button>
+    </a>
+  {% endif %}
+  {% if task.can_move_down == True %}
+    <a href="{{ url_for('reorderp.move_task', taskid=task.id, move='down') }}" class="buttonLink">
+      <button style="{{ textColor }}">Move-Down</button>
+    </a>
+  {% endif %}
+  {% if task.can_move_end == True %}
+    <a href="{{ url_for('reorderp.move_task', taskid=task.id, move='end') }}" class="buttonLink">
+      <button style="{{ textColor }}">Move-End</button>
+    </a>
+  {% endif %}
+{% endblock %}

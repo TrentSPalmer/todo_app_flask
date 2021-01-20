@@ -1,0 +1,58 @@
+<style>
+#main {
+align-items: center;
+}
+.heading {
+  margin-top: 40px;
+  font-size: 2.3rem;
+}
+.taskContainer {
+  width: 99%;
+  max-width: 600px;
+  margin-bottom: 10px;
+  border-radius: 9px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  border: 1px solid;
+  display: flex;
+  justify-content: space-between;
+}
+.task {
+  padding-left: 20px;
+  padding-right: 20px;
+  max-width: calc(100% - 70px);
+  word-wrap: break-word;
+}
+.taskAction {
+  background-color: black;
+  height: 100%;
+  border-top-right-radius: 9px;
+  border-bottom-right-radius: 9px;
+  width: 30px;
+}
+.taskActionLink {
+  text-decoration: none;
+}
+</style>
+{% extends "base.html" %}
+
+{% block content %}
+  <h1 class="heading">{{ heading }}</h1>
+  {% for task in tasks %}
+    {% if task.done == True %}
+      {% set textColor = "color: grey;" %}
+    {% else %}
+      {% set textColor = "color: black;" %}
+    {% endif %}
+    <div class="taskContainer">
+
+      <div class="task" style="{{ textColor }}">
+        <p>{{ task.time }}</p> {{ task.markup|safe }}
+      </div>
+
+      <a href="{{ task.href }}" class="taskActionLink">
+        <button class="taskAction" style="color: white;">{{ task.priority }}</button>
+      </a>
+    </div>
+  {% endfor %}
+{% endblock %}

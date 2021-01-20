@@ -1,0 +1,28 @@
+<style>
+#name {
+  font-size: 1.2rem;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+</style>
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="formContainer">
+    <h1>{{ titile }}</h1>
+    <form action="" method="post">
+      {{ form.hidden_tag() }}
+      <p>
+        {{ form.name.label }}<br>
+        {{ form.name(size=24) }}<br>
+        {% for error in form.name.errors %}
+          <span class="formWarning">[{{ error }}]</span>
+        {% endfor %}
+      </p>
+      <p>{{ form.submit() }}</p>
+    </form>
+  </div>
+{% endblock %}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="author" content="TrentSPalmer">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href='{{url_for('static', filename='css/todo.css')}}'>
+    {% if title %}
+      <title>{{ title }}</title>
+    {% else %}
+      <title>Todo</title>
+    {% endif %}
+  </head>
+  <body>
+    <div id="navbarContainer">
+      <div id="navbar">
+        {% for navbar_link in navbar_links %}
+          <a href="{{ navbar_link[1] }}"><button>{{ navbar_link[0] }}</button></a>
+        {% endfor %}
+      </div>
+    </div>
+    <div id="main">
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            <div class="flashContainer">{{message}}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+      {% if current_user.is_authenticated %}
+        <p id="userGreeting">Logged in as: {{ current_user.name }}</p>
+      {% else %}
+        <p id="userGreeting"> viewing as guest</p>
+      {% endif %}
+      {% block content %}{% endblock %}
+    </div>
+  </body>
+</html>
