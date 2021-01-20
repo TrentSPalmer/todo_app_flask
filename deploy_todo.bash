@@ -10,7 +10,6 @@ cp -v /home/trent/flaskapps/todo_app_flask/app/__init__.py        /var/lib/todo/
 cp -v /home/trent/flaskapps/todo_app_flask/app/sendxmpp_handler.py        /var/lib/todo/app
 cp -v /home/trent/flaskapps/todo_app_flask/app/models.py        /var/lib/todo/app
 cp -v /home/trent/flaskapps/todo_app_flask/app/forms.py        /var/lib/todo/app
-cp -v /home/trent/flaskapps/todo_app_flask/app/email.py        /var/lib/todo/app
 
 [ ! -d "/var/lib/todo/app/categories" ] && mkdir /var/lib/todo/app/categories
 cp -v /home/trent/flaskapps/todo_app_flask/app/categories/categories.py        /var/lib/todo/app/categories
