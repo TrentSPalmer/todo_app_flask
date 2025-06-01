@@ -1,0 +1,4 @@
+# use this when developing locally with `flask run`
+FLASK_APP=todo.py
+FLASK_RUN_HOST="some_host_name"
+FLASK_DEBUG="true"
