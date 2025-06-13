@@ -4,6 +4,8 @@ from flask import Blueprint, redirect, url_for, render_template
 from flask_login import current_user
 from app.models import Category, Task
 from markdown import markdown
+from time import timezone
+from datetime import timedelta
 
 tsks = Blueprint(
     "tsks", __name__, template_folder="templates"
@@ -25,7 +27,8 @@ def hidden_tasks(category_id):
     for task in tasks:
         task.markup = markdown(task.content)
         task.href = url_for('taskaction.task_action', taskid=task.id)
-        task.time = task.timestamp.strftime("%Y-%m-%d %H:%M")
+        local_time = task.timestamp - timedelta(seconds=timezone)
+        task.time = local_time.strftime("%Y-%m-%d %H:%M")
 
     nl = (
         ('new', url_for('newtask.new_task', category_id=category_id)),
@@ -56,7 +59,8 @@ def tasks(category_id):
     for task in tasks:
         task.markup = markdown(task.content)
         task.href = url_for('taskaction.task_action', taskid=task.id)
-        task.time = task.timestamp.strftime("%Y-%m-%d %H:%M")
+        local_time = task.timestamp - timedelta(seconds=timezone)
+        task.time = local_time.strftime("%Y-%m-%d %H:%M")
 
     nl = (
         ('new', url_for('newtask.new_task', category_id=category_id)),
