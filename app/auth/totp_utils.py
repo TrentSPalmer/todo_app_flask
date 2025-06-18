@@ -8,7 +8,7 @@ from io import BytesIO
 
 
 def get_totp_qr(contributor, app_config):
-    totp_key = pyotp.random_base32() if contributor.totp_key is None else contributor.totp_key
+    totp_key = pyotp.random_base32()[:16] if contributor.totp_key is None else contributor.totp_key
     if contributor.totp_key is None:
         conn = psycopg2.connect(
             dbname=app_config['DATABASE_NAME'],
