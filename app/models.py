@@ -54,7 +54,11 @@ class Contributor(UserMixin, db.Model):
         return '<Contributor {}>'.format(self.name)
 
     def get_reset_password_token(self, expires_in=1800):
-        return jwt.encode({'reset_password': self.id, 'exp': time() + expires_in}, app.config['SECRET_KEY'], algorithm='HS256').decode('utf-8')
+        token = jwt.encode({'reset_password': self.id, 'exp': time() + expires_in}, app.config['SECRET_KEY'], algorithm='HS256')
+        if type(token) == str:
+            return token
+        else:
+            return token.decode('utf-8')
 
     @staticmethod
     def verify_reset_password_token(token):
