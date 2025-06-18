@@ -260,3 +260,5 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&quot;task_pkey&quot; PRIMARY KEY, btree (id)<br />
 </p>
 
+## Upgrading from Deb11 -> 12
+* install `python3-email-validator`
